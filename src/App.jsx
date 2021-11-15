@@ -12,6 +12,11 @@ import {
 import Navbar from './components/Navbar'
 import RegisterPage from './pages/RegisterPage'
 import TodoPage from './pages/TodoPage'
+import AddTodoPage from './pages/AddTodoPage'
+import EditTodoPage from './pages/EditTodoPage'
+import PostPage from './pages/PostPage'
+import PostDetailPage from './pages/PostDetailPage'
+import EditCommentPage from './pages/EditCommentPage'
 
 function App() {
   return (
@@ -23,6 +28,10 @@ function App() {
       <Navbar/>
       <RegisterPage/>
       <TodoPage/>
+      <AddTodoPage/>
+      <PostPage/>
+      <PostDetailPage/>
+      <EditCommentPage/>
     </div>
     //       </Route>
     //     </Switch>
