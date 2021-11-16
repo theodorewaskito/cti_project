@@ -136,8 +136,8 @@ export function deleteTodo(todoId) {
 
 export function updateTodo(payload, todoId) {
   return function(dispatch, getState) {
-    // console.log(todoId);
-    // console.log(payload);
+    console.log(todoId);
+    console.log(payload);
     dispatch(setLoading(true))
     fetch(`${baseUrl}/todos/${todoId}`, {
       method: "PUT",

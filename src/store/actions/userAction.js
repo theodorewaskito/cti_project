@@ -1,4 +1,4 @@
-import {SET_ERROR, SET_LOADING, SET_ISLOGIN } from "../actionType";
+import {SET_ERROR, SET_LOADING, SET_ISLOGIN, SET_USER } from "../actionType";
 import Swal from 'sweetalert2'
 
 const baseUrl = 'https://gorest.co.in/public/v1'
@@ -20,6 +20,14 @@ export function setError(payload) {
 export function setIsLogin(payload) {
   return {
     type: SET_ISLOGIN,
+    payload: payload 
+  }
+}
+
+
+export function setUser(payload) {
+  return {
+    type: SET_USER,
     payload: payload 
   }
 }
@@ -94,5 +102,24 @@ export function logoutHandle(payload) {
   return function(dispatch) {
     localStorage.clear()
     dispatch(setIsLogin(false))
+  }
+}
+
+export function getUserDetail() {
+  return function(dispatch) {
+    let userId = localStorage.getItem('userId')
+    dispatch(setLoading(true))
+    fetch(`${baseUrl}/users/${userId}`) 
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        dispatch(setUser(data))
+      })
+      .catch((err) => {
+        dispatch(setError(err))
+      })
+      .finally(() => {
+        dispatch(setLoading(false))
+      })
   }
 }
