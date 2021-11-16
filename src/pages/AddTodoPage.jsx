@@ -1,6 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { setLoading, setError } from '../store/actions/userAction';
+import { createTodo } from '../store/actions/todoAction';
 
 function AddTodoPage() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const [addTodo, setAddTodo] = useState({
+    title: '',
+    due_on: '',
+    status: ''
+  })
+
+  function submitAddTodo(e) {
+    e.preventDefault()
+    dispatch(createTodo(addTodo))
+    navigate('/todo')
+  }
+
   return (
     <div class="d-flex justify-content-center m-4">
       <div class="col-7">
@@ -8,19 +27,37 @@ function AddTodoPage() {
           <h3>Add Todo</h3>
         </div>
         <form class="my-4" 
-          // onSubmit={submitLogin}
+          onSubmit={submitAddTodo}
         >
           <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="email" class="form-control" id="title" aria-describedby="emailHelp"/>
+            <input type="text" class="form-control" id="title" aria-describedby="emailHelp"
+              value={addTodo.title}
+              onChange={(e) => setAddTodo({
+                ...addTodo,
+                title: e.target.value
+              })}
+            />
           </div>
           <div class="mb-3">
             <label for="due_on" class="form-label">Due On</label>
-            <input type="date" class="form-control" id="due_on"/>
+            <input type="date" class="form-control" id="due_on"
+              value={addTodo.due_on}
+              onChange={(e) => setAddTodo({
+                ...addTodo,
+                due_on: e.target.value
+              })}
+            />
           </div>
           <div class="mb-3">
               <label class="form-label">Status</label>
-              <select class="form-select" aria-label="Default select example">
+              <select class="form-select" aria-label="Default select example"
+                value={addTodo.status}
+                onChange={(e) => setAddTodo({
+                  ...addTodo,
+                  status: e.target.value
+                })}
+              >
                 <option selected className="text-center">--- Please select status ---</option>
                 <option value="pending">Pending</option>
                 <option value="completed">Completed</option>

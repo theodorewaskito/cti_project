@@ -1,7 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Comment from '../components/Comment'
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { getPostId, setError, setLoading } from '../store/actions/postAction';
 
 function PostDetailPage() {
+  const dispatch = useDispatch()
+  const {postId} = useParams()
+  console.log(postId);
+  const post  = useSelector(state => state.postState.post);
+
+  useEffect(() => {
+    dispatch(getPostId(postId))
+  }, [])
+
   return (
     <div className="m-5">
       <div class="card">

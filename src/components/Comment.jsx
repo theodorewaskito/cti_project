@@ -13,7 +13,7 @@ function Comment() {
             <p>Reiciendis et nesciunt. In facere ut. Aut veniam qui. Eos sit minima.</p>
             <div className="d-flex justify-content-end mt-3">
               <a href="#" class="" style={{padding: "5px 15px"}}><i class="fas fa-edit" style={{color: "orange"}}></i></a>
-              <a href="#" class="" style={{padding: "5px 15px"}}><i class="fas fa-trash-alt" style={{color: "red"}}></i></a>
+              <a href="#" class="" style={{padding: "5px 15px"}}><i class="fas fa-trash-alt" style={{color: "#FE5320"}}></i></a>
             </div>
           </div>
         </div>
