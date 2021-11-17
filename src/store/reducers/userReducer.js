@@ -2,7 +2,8 @@ import {
   SET_LOADING_USER, 
   SET_ERROR_USER, 
   SET_ISLOGIN, 
-  SET_USER 
+  SET_USER,
+  SET_USER_POST 
 } from "../actionType";
 
 const initialState = {
@@ -10,7 +11,8 @@ const initialState = {
   isLoadingUser: true,
   isErrorUser: false,
   error: null,
-  user: {}
+  user: {},
+  userPost: {}
 }
 
 function  reducer(state = initialState, action) {
@@ -24,6 +26,8 @@ function  reducer(state = initialState, action) {
       return { ...state, isErrorUser: payload }
     case SET_USER:
       return { ...state, user: payload }
+    case SET_USER_POST:
+      return { ...state, userPost: payload }
     default:
       return state
   }

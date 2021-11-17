@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading, setError } from '../store/actions/userAction';
-import { getPosts } from '../store/actions/postAction';
+import { getPosts, nextPagePosts, previousPagePosts } from '../store/actions/postAction';
 import PostCard from "../components/PostCard";
 import Profile from "../components/Profile";
 import Loading from "../components/Loading";
@@ -14,12 +14,23 @@ function PostPage() {
   const posts = useSelector(state => state.postState.posts)
   const loading = useSelector(state => state.postState.isLoading)
   const error = useSelector(state => state.postState.isError)  
-
-  console.log(loading, error);
+  const page = useSelector(state => state.postState.page) 
 
   useEffect(() => {
     dispatch(getPosts())
   }, [])
+
+  function previousPage(e) {
+    e.preventDefault()
+    dispatch(previousPagePosts())
+    dispatch(getPosts())
+  }
+
+  function nextPage(e) {
+    e.preventDefault()
+    dispatch(nextPagePosts())
+    dispatch(getPosts())
+  }
 
   if (loading) {
     return <Loading/>
@@ -29,49 +40,90 @@ function PostPage() {
     return <Error/>
   }
 
-  return (
-    <div>
-      <Profile/>
-      <div className="mb-5">
-        <h1>Posts</h1>
-      </div>
+  if (page > 1) {
+    return (
       <div>
-        {
-          // console.log(posts.data)
-          posts?.data?.map((post, index) => {
-            return (
-              <PostCard
-                key={index} 
-                post={post}
-              >
-              </PostCard>
-            )
-          })
-        }
-
+        <Profile/>
+        <div className="mb-5">
+          <h1>Posts</h1>
+        </div>
+        <div>
+          {
+            posts?.data?.map((post, index) => {
+              return (
+                <PostCard
+                  key={index} 
+                  post={post}
+                >
+                </PostCard>
+              )
+            })
+          }
+        </div>
+        {/* Pagination */}
+        <div className="d-flex justify-content-center my-5" style={{color: '#5386FE'}}>
+          <nav aria-label="Page navigation example ">
+            <ul class="pagination">
+              <li class="page-item">
+                <button onClick={previousPage} class="page-link">
+                  <span aria-hidden="true">&laquo;</span>
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link">
+                  {page}
+                </button>
+              </li>
+              <li class="page-item">
+                <button onClick={nextPage} class="page-link" >
+                  <span aria-hidden="true">&raquo;</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
-      {/* Pagination */}
-      <div className="d-flex justify-content-center mt-5" style={{color: '#5386FE'}}>
-        <nav aria-label="Page navigation example ">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            {/* <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li> */}
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+    )
+  } else {
+    return (
+      <div>
+        <Profile/>
+        <div className="mb-5">
+          <h1>Posts</h1>
+        </div>
+        <div>
+          {
+            posts?.data?.map((post, index) => {
+              return (
+                <PostCard
+                  key={index} 
+                  post={post}
+                >
+                </PostCard>
+              )
+            })
+          }
+        </div>
+        {/* Pagination */}
+        <div className="d-flex justify-content-center my-5" style={{color: '#5386FE'}}>
+          <nav aria-label="Page navigation example ">
+            <ul class="pagination">
+              <li class="page-item">
+                <button class="page-link">
+                  {page}
+                </button>
+              </li>
+              <li class="page-item">
+                <button onClick={nextPage} class="page-link" >
+                  <span aria-hidden="true">&raquo;</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default PostPage

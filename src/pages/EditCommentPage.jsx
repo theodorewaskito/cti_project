@@ -48,7 +48,11 @@ function EditCommentPage() {
         >
           <div class="mb-3">
             <label for="title" class="form-label">Comment</label>
-            <textarea class="form-control" id="floatingTextarea2" style={{height: "150px"}}
+            <textarea 
+              required
+              class="form-control" 
+              id="floatingTextarea2" 
+              style={{height: "150px"}}
               value={editComment.body}
               onChange={(e) => setEditComment({
                 ...editComment,

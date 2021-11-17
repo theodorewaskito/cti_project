@@ -1,4 +1,10 @@
-import {SET_ERROR, SET_LOADING, SET_TODOS, SET_TODO} from "../actionType";
+import {
+  SET_ERROR, 
+  SET_LOADING, 
+  SET_TODOS, 
+  SET_TODO,
+  SET_PAGE_TODO
+} from "../actionType";
 import Swal from 'sweetalert2'
 
 const baseUrl = 'https://gorest.co.in/public/v1'
@@ -31,12 +37,35 @@ export function setTodo(payload) {
   }
 }
 
+export function setPage(payload) {
+  return {
+    type: SET_PAGE_TODO,
+    payload: payload 
+  }
+}
+
+export function nextPageTodos(payload) {
+  return function (dispatch, getState) {
+    let page = getState().todoState.page
+    page ++
+    dispatch(setPage(page))
+  }
+}
+
+export function previousPageTodos(payload) {
+  return function (dispatch, getState) {
+    let page = getState().todoState.page
+    page --
+    dispatch(setPage(page))
+  }
+}
+
 export function getTodos(payload) {
-  return function(dispatch) {
-    console.log(localStorage.getItem('userId'));
+  return function(dispatch, getState) {
+    let page = getState().todoState.page
     let userId = localStorage.getItem('userId')
     dispatch(setLoading(true))
-    fetch(`${baseUrl}/users/${userId}/todos`) 
+    fetch(`${baseUrl}/users/${userId}/todos?page=${page}`) 
       .then(res => res.json())
       .then(data => {
         console.log(data); 

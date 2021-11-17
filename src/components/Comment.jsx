@@ -8,7 +8,7 @@ function Comment({ comment, postId }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  console.log(comment, postId);
+  // console.log(comment, postId);
 
   function editComment(id) {
     navigate(`/comment/${id}`)
@@ -36,10 +36,10 @@ function Comment({ comment, postId }) {
           <div class="card-body">
             
             <h5 class="card-title" style={{color: 'grey'}}>
-              <i class="fas fa-user-circle me-2"></i>
-              <b>{comment.name}</b>
+              <i style={{fontSize: "15px"}} class="fas fa-user-circle me-2"></i>
+              <b style={{fontSize: "15px"}}>{comment.name}</b>
             </h5>
-            <p>{comment.body}</p>
+            <p style={{fontSize: "15px"}}>{comment.body}</p>
             <div className="d-flex justify-content-end mt-3">
               <button
                 onClick={() => editComment(comment.id)}
