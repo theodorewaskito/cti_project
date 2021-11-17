@@ -14,4 +14,6 @@ export const SET_COMMENT = 'post/comment/detail'
 export const SET_TODOS = 'todo/list'
 export const SET_TODO = 'todo/detail'
 export const SET_USER = 'user/detail'
+export const SET_PAGE_POST = 'post/page'
+export const SET_PAGE_TODO = 'todo/page'
 

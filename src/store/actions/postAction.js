@@ -4,7 +4,8 @@ import {
   SET_POSTS, 
   SET_POST,
   SET_COMMENTS,
-  SET_COMMENT
+  SET_COMMENT,
+  SET_PAGE_POST
 } from "../actionType";
 import Swal from 'sweetalert2'
 
@@ -52,11 +53,35 @@ export function setComment(payload) {
   }
 }
 
+export function setPage(payload) {
+  return {
+    type: SET_PAGE_POST,
+    payload: payload 
+  }
+}
+
+export function nextPagePosts(payload) {
+  return function (dispatch, getState) {
+    let page = getState().postState.page
+    page ++
+    dispatch(setPage(page))
+  }
+}
+
+export function previousPagePosts(payload) {
+  return function (dispatch, getState) {
+    let page = getState().postState.page
+    page --
+    dispatch(setPage(page))
+  }
+}
+
 export function getPosts(payload) {
-  return function(dispatch) {
+  return function(dispatch, getState) {
     // console.log(payload.email);
+    let page = getState().postState.page
     dispatch(setLoading(true))
-    fetch(`${baseUrl}/posts`) 
+    fetch(`${baseUrl}/posts?page=${page}`) 
       .then(res => res.json())
       .then(data => {
         console.log(data); 

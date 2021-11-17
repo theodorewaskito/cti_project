@@ -2,14 +2,16 @@ import {
   SET_ERROR_TODO,
   SET_LOADING_TODO,
   SET_TODOS, 
-  SET_TODO 
+  SET_TODO,
+  SET_PAGE_TODO
 } from "../actionType";
 
 const initialState = {
   isLoadingTodo: false,
   isErrorTodo: false,
   todos: [],
-  todo: {}
+  todo: {},
+  page: 1
 }
 
 function  reducer(state = initialState, action) {
@@ -23,6 +25,8 @@ function  reducer(state = initialState, action) {
       return { ...state, todos: payload }
     case SET_TODO:
       return { ...state, todo: payload }
+    case SET_PAGE_TODO:
+      return { ...state, page: payload }
     default:
       return state
   }

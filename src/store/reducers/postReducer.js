@@ -4,7 +4,8 @@
     SET_COMMENTS, 
     SET_COMMENT, 
     SET_LOADING_POST,
-    SET_ERROR_POST
+    SET_ERROR_POST,
+    SET_PAGE_POST
   } from "../actionType";
 
   const initialState = {
@@ -14,7 +15,8 @@
     post: {},
     comments: [],
     comment: {},
-    user: {}
+    user: {},
+    page: 1
   }
 
   function  reducer(state = initialState, action) {
@@ -32,6 +34,8 @@
         return { ...state, comments: payload }
       case SET_COMMENT:
         return { ...state, comment: payload }
+      case SET_PAGE_POST:
+        return { ...state, page: payload }
       default:
         return state
     }

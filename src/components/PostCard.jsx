@@ -22,7 +22,7 @@ function PostCard({ post }) {
 
   return (
     <div class="col-sm-12">
-      <div class="card shadow-sm mb-2 bg-white rounded">
+      <div class="card shadow-sm mb-3 bg-white rounded border-dark">
         <div class="card-body">
           <p class="card-title" style={{textAlign: "justify", textJustify: "inter-word"}}><b>{post.title}</b></p>
           <p  class="card-text" style={{textAlign: "justify", textJustify: "inter-word", color: "grey"}}>{trimmedString(post.body)}</p>
@@ -30,8 +30,7 @@ function PostCard({ post }) {
             <button
               onClick={() => postDetail(post.id)}
               class="stretched-link btn" >
-              <i class="fas fa-info-circle" style={{color: "#5386FE"}}>
-              </i>
+              <p style={{fontSize: "15px", color: "gray"}}>Read more...</p>
             </button>
           </div>
         </div>

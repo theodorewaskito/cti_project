@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { setLoading, setError } from '../store/actions/userAction';
-import { getTodos } from '../store/actions/todoAction';
+import { getTodos, nextPageTodos, previousPageTodos } from '../store/actions/todoAction';
 import Swal from 'sweetalert2'
 import TodoCard from "../components/TodoCard";
 import Profile from "../components/Profile";
@@ -14,9 +14,11 @@ export default () => {
   const navigate = useNavigate()
 
   const todos = useSelector(state => state.todoState.todos)
-  
   const loading = useSelector(state => state.todoState.isLoadingTodo)
-  const error = useSelector(state => state.todoState.isErrorTodo)  
+  const error = useSelector(state => state.todoState.isErrorTodo)
+  const page = useSelector(state => state.todoState.page) 
+
+  console.log(page, todos);
 
   useEffect(() => {
     dispatch(getTodos())
@@ -27,6 +29,18 @@ export default () => {
     navigate('/todo/add')
   }
 
+  function previousPage(e) {
+    e.preventDefault()
+    dispatch(previousPageTodos())
+    dispatch(getTodos())
+  }
+
+  function nextPage(e) {
+    e.preventDefault()
+    dispatch(nextPageTodos())
+    dispatch(getTodos())
+  }
+
   // if (loading) {
   //   return <Loading/>
   // } 
@@ -35,52 +49,109 @@ export default () => {
     return <Error/>
   }
 
-  return (
-    <div>
-      <Profile/>
-      <div className="mb-5">
-        <h1>Todo</h1>
-        <div>
-          <button 
-            onClick={addTodo}
-            type="button" 
-            class="btn" 
-            style={{backgroundColor: "#5386FE", color: "white"}}
-          >
-            <i class="fas fa-plus-circle"></i>
-            <span className="ms-2">Add</span>
-          </button>
+  if (page > 1) {
+    return (
+      <div>
+        <Profile/>
+        <div className="mb-5">
+          <h1>Todo</h1>
+          <div>
+            <button 
+              onClick={addTodo}
+              type="button" 
+              class="btn" 
+              style={{backgroundColor: "#5386FE", color: "white"}}
+            >
+              <i class="fas fa-plus-circle"></i>
+              <span className="ms-2">Add</span>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          {
+            // console.log(todos),
+            todos?.data?.map(( todo, index ) => {
+              return (
+                <TodoCard
+                  key={index} 
+                  todo={todo}
+                />
+              )
+            })
+          }
+        </div>
+        <div className="d-flex justify-content-center mt-5" style={{color: '#5386FE'}}>
+          <nav aria-label="Page navigation example ">
+            <ul class="pagination">
+              <li class="page-item">
+                <button onClick={previousPage} class="page-link">
+                  <span aria-hidden="true">&laquo;</span>
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link">
+                  {page}
+                </button>
+              </li>
+              <li class="page-item">
+                <button onClick={nextPage} class="page-link" >
+                  <span aria-hidden="true">&raquo;</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
-      <div class="row">
-        {
-          // console.log(todos),
-          todos?.data?.map(( todo, index ) => {
-            return (
-              <TodoCard
-                key={index} 
-                todo={todo}
-              />
-            )
-          })
-        }
+    )
+  } else {
+    return (
+      <div>
+        <Profile/>
+        <div className="mb-5">
+          <h1>Todo</h1>
+          <div>
+            <button 
+              onClick={addTodo}
+              type="button" 
+              class="btn" 
+              style={{backgroundColor: "#5386FE", color: "white"}}
+            >
+              <i class="fas fa-plus-circle"></i>
+              <span className="ms-2">Add</span>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          {
+            // console.log(todos),
+            todos?.data?.map(( todo, index ) => {
+              return (
+                <TodoCard
+                  key={index} 
+                  todo={todo}
+                />
+              )
+            })
+          }
+        </div>
+        <div className="d-flex justify-content-center mt-5" style={{color: '#5386FE'}}>
+          <nav aria-label="Page navigation example ">
+            <ul class="pagination">
+              <li class="page-item">
+                <button class="page-link">
+                  {page}
+                </button>
+              </li>
+              <li class="page-item">
+                <button onClick={nextPage} class="page-link" >
+                  <span aria-hidden="true">&raquo;</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
-      <div className="d-flex justify-content-center mt-5" style={{color: '#5386FE'}}>
-        <nav aria-label="Page navigation example ">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  )
+    )
+  }
+
 }

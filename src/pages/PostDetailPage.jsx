@@ -57,7 +57,7 @@ function PostDetailPage() {
   return (
     <div className='mb-4'>
       <Profile/>
-      <div class="card">
+      <div class="card border-dark">
         <div class="card-body m-3">
           <h5 class="card-title mb-4 post-font bold-font" style={{textAlign: "justify", textJustify: "inter-word"}}><b>{post?.data?.title}</b></h5>
           <p class="card-text post-font thin-font" style={{textAlign: "justify", textJustify: "inter-word", color: "black"}}>{post?.data?.body}</p>
@@ -68,7 +68,12 @@ function PostDetailPage() {
         <h6>Leave a comment</h6>
         <div class="form-floating">
           <form onSubmit={submitAddComment}>
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: "150px"}}
+            <textarea 
+              required
+              class="form-control" 
+              placeholder="Leave a comment here" 
+              id="floatingTextarea2" 
+              style={{height: "150px"}}
               value={addComment.body}
               onChange={(e) => setAddComment({
                 ...addComment,
