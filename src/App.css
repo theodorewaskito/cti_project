@@ -1,0 +1,29 @@
+.App {
+  font-family: 'Montserrat', sans-serif; 
+  /* font-family: 'DM Serif Text', serif;  */
+  font-style: normal;
+  font-weight: normal;
+}
+
+.register-image {
+  width: 570px;
+  height: 490px;
+}
+
+.login-image {
+  width: 100%;
+  height: 250px;
+}
+
+.post-font {
+  font-family: 'DM Serif Text', serif;
+}
+
+.bold-font {
+  font-size: 25px;
+}
+
+.thin-font {
+  font-weight: 100;
+  font-size: 18px;
+}

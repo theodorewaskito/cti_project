@@ -1,0 +1,40 @@
+  import { 
+    SET_POSTS, 
+    SET_POST, 
+    SET_COMMENTS, 
+    SET_COMMENT, 
+    SET_LOADING_POST,
+    SET_ERROR_POST
+  } from "../actionType";
+
+  const initialState = {
+    isLoading: false,
+    isError: false,
+    posts: [],
+    post: {},
+    comments: [],
+    comment: {},
+    user: {}
+  }
+
+  function  reducer(state = initialState, action) {
+    const { type, payload } = action;
+    switch (type) {
+      case SET_LOADING_POST:
+        return { ...state, isLoading: payload }
+      case SET_ERROR_POST:
+        return { ...state, isError: payload }
+      case SET_POSTS:
+        return { ...state, posts: payload }
+      case SET_POST:
+        return { ...state, post: payload }
+      case SET_COMMENTS:
+        return { ...state, comments: payload }
+      case SET_COMMENT:
+        return { ...state, comment: payload }
+      default:
+        return state
+    }
+  }
+
+  export default reducer
