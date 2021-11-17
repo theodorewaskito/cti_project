@@ -1,4 +1,10 @@
-import {SET_ERROR, SET_LOADING, SET_ISLOGIN, SET_USER } from "../actionType";
+import {
+  SET_ERROR, 
+  SET_LOADING, 
+  SET_ISLOGIN, 
+  SET_USER,
+  SET_USER_POST 
+} from "../actionType";
 import Swal from 'sweetalert2'
 
 const baseUrl = 'https://gorest.co.in/public/v1'
@@ -32,6 +38,13 @@ export function setUser(payload) {
   }
 }
 
+export function setUserPost(payload) {
+  return {
+    type: SET_USER_POST,
+    payload: payload 
+  }
+}
+
 export function registerHandle(payload) {
   return function(dispatch) {
     dispatch(setLoading(true))
@@ -54,10 +67,6 @@ export function registerHandle(payload) {
             text: data.message[0]
           })
         } else {
-          Swal.fire({
-            icon: 'success',
-            title: 'Thankyou for joining',
-          })
           console.log(data);
         }
       })
@@ -113,8 +122,26 @@ export function getUserDetail() {
     fetch(`${baseUrl}/users/${userId}`) 
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         dispatch(setUser(data))
+      })
+      .catch((err) => {
+        dispatch(setError(err))
+      })
+      .finally(() => {
+        dispatch(setLoading(false))
+      })
+  }
+}
+
+export function getUserPostDetail(userId) {
+  return function(dispatch) {
+    dispatch(setLoading(true))
+    fetch(`${baseUrl}/users/${userId}`) 
+      .then(res => res.json())
+      .then(data => {
+        // console.log(data);
+        dispatch(setUserPost(data))
       })
       .catch((err) => {
         dispatch(setError(err))

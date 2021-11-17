@@ -41,7 +41,8 @@ export default () => {
     })
     navigate('/login')    
   }
-  
+
+  console.log();
 
   return (
     <div class="d-flex justify-content-center m-4">

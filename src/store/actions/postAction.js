@@ -102,6 +102,7 @@ export function getPostId(id) {
     fetch(`${baseUrl}/posts/${id}`) 
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         dispatch(setPost(data))
       })
       .catch((err) => {
