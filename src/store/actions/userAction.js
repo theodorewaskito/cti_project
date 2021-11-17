@@ -46,6 +46,7 @@ export function registerHandle(payload) {
     }) 
       .then(res => res.json())
       .then(data => {
+        console.log(data.data.message[0]);
         if (data.data.message[0]) {
           Swal.fire({
             icon: 'error',

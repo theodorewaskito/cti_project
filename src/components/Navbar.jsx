@@ -24,7 +24,7 @@ export default () => {
     return ( 
       <nav class="navbar navbar-dark" style={{backgroundColor: "#5386FE"}}>
         <div class="d-flex flex-row bd-highlight ms-3 col-10">
-          <Link to="/todo" style={{textDecoration: "none"}}>
+          <Link to="/" style={{textDecoration: "none"}}>
             <a class="navbar-brand me-4" href="#">Todo</a>
           </Link>
           <Link to="/post" style={{textDecoration: "none"}}>
@@ -44,10 +44,13 @@ export default () => {
   } else if (!localStorage.getItem('userId')) {
     return (
       <nav class="navbar navbar-dark" style={{backgroundColor: "#5386FE"}}>
-      <div class="d-flex flex-row bd-highlight ms-3 col-10">
+      <div class="d-flex flex-row bd-highlight ms-3 col-8">
         <a class="navbar-brand me-4" href="#">Todo</a>
       </div>
       <div>
+        <Link to="/register" style={{textDecoration: "none"}}>
+          <button type="button" class="btn me-3" style={{color: 'white'}}>Register</button>
+        </Link>
         <Link to="/login" style={{textDecoration: "none"}}>
           <button type="button" class="btn me-3" style={{backgroundColor: "green", color: 'white'}}>Login</button>
         </Link>

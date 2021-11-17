@@ -1,3 +1,9 @@
+export const SET_LOADING_USER = "user/loading";
+export const SET_ERROR_USER = "user/error";
+export const SET_LOADING_TODO = "todo/loading";
+export const SET_ERROR_TODO = "todo/error";
+export const SET_LOADING_POST = "post/loading";
+export const SET_ERROR_POST = "post/error";
 export const SET_LOADING = "todo/loading";
 export const SET_ERROR = "todo/error";
 export const SET_ISLOGIN = 'user/login'

@@ -1,6 +1,6 @@
 import {
-  SET_ERROR, 
-  SET_LOADING, 
+  SET_ERROR_POST, 
+  SET_LOADING_POST, 
   SET_POSTS, 
   SET_POST,
   SET_COMMENTS,
@@ -12,14 +12,14 @@ const baseUrl = 'https://gorest.co.in/public/v1'
 
 export function setLoading(payload) {
   return {
-    type: SET_LOADING,
+    type: SET_LOADING_POST,
     payload: payload 
   }
 }
 
 export function setError(payload) {
   return {
-    type: SET_ERROR,
+    type: SET_ERROR_POST,
     payload: payload 
   }
 }
@@ -130,8 +130,8 @@ export function createComment(postId, payload) {
     payload = {
       ...payload,
       post_id: postId,
-      name: getState().postState.user.data.name,
-      email: getState().postState.user.data.email
+      name: getState().userState.user.data.name,
+      email: getState().userState.user.data.email
     }
     fetch(`${baseUrl}/posts/${postId}/comments`, {
       method: "POST",

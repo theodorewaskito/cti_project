@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { setLoading, setError, loginHandle} from '../store/actions/userAction';
 import Swal from 'sweetalert2'
 import image from '../images/undraw_Web_devices_re_m8sc.png'
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 export default () => { 
   const navigate = useNavigate()
@@ -12,6 +14,9 @@ export default () => {
   // const error = useSelector(state => state.userState.isError)
   const isLogin = useSelector(state => state.userState.isLogin)
 
+  const loading = useSelector(state => state.userState.isLoadingUser)
+  const error = useSelector(state => state.userState.isErrorUser)  
+
   const [loginUser, setLoginUser] = useState({
     email: ''
   })
@@ -19,6 +24,14 @@ export default () => {
   function submitLogin(e) {
     e.preventDefault()
     dispatch(loginHandle(loginUser))
+  }
+
+  // if (loading) {
+  //   return <Loading/>
+  // } 
+
+  if (error) {
+    return <Error/>
   }
 
   useEffect(() => {
@@ -52,7 +65,7 @@ export default () => {
               >
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="email"
+                  <input type="email" class="form-control" id="email" required
                     value={loginUser.email}
                     onChange={(e) => setLoginUser({
                       ...loginUser,

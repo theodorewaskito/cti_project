@@ -5,13 +5,18 @@ import { setLoading, setError } from '../store/actions/userAction';
 import { getTodos } from '../store/actions/todoAction';
 import Swal from 'sweetalert2'
 import TodoCard from "../components/TodoCard";
+import Profile from "../components/Profile";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 export default () => { 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const todos = useSelector(state => state.todoState.todos)
-  const loading = useSelector(state => state.userState.isLoading)
+  
+  const loading = useSelector(state => state.todoState.isLoadingTodo)
+  const error = useSelector(state => state.todoState.isErrorTodo)  
 
   useEffect(() => {
     dispatch(getTodos())
@@ -22,8 +27,17 @@ export default () => {
     navigate('/todo/add')
   }
 
+  // if (loading) {
+  //   return <Loading/>
+  // } 
+
+  if (error) {
+    return <Error/>
+  }
+
   return (
-    <div className="m-5">
+    <div>
+      <Profile/>
       <div className="mb-5">
         <h1>Todo</h1>
         <div>

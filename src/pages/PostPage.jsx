@@ -3,23 +3,35 @@ import { useSelector, useDispatch } from "react-redux";
 import { setLoading, setError } from '../store/actions/userAction';
 import { getPosts } from '../store/actions/postAction';
 import PostCard from "../components/PostCard";
-
+import Profile from "../components/Profile";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 function PostPage() {
 
   const dispatch = useDispatch()
 
   const posts = useSelector(state => state.postState.posts)
-  const loading = useSelector(state => state.userState.isLoading)
-  // const error = useSelector(state => state.isError)  
+  const loading = useSelector(state => state.postState.isLoading)
+  const error = useSelector(state => state.postState.isError)  
+
+  console.log(loading, error);
 
   useEffect(() => {
     dispatch(getPosts())
   }, [])
 
+  if (loading) {
+    return <Loading/>
+  } 
+
+  if (error) {
+    return <Error/>
+  }
 
   return (
-    <div className="m-5">
+    <div>
+      <Profile/>
       <div className="mb-5">
         <h1>Posts</h1>
       </div>

@@ -8,6 +8,8 @@ function Comment({ comment, postId }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  console.log(comment, postId);
+
   function editComment(id) {
     navigate(`/comment/${id}`)
   }
@@ -47,7 +49,7 @@ function Comment({ comment, postId }) {
                 <i class="fas fa-edit" style={{color: "orange"}}></i>
               </button>
               <button class="btn" style={{padding: "5px 15px"}}
-                onClick={() => delComment()}
+                onClick={() => delComment(comment.id)}
               >
                 <i class="fas fa-trash-alt" style={{color: "#FE5320"}}></i>
               </button>

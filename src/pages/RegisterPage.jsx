@@ -4,13 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { setLoading, setError, registerHandle} from '../store/actions/userAction';
 // import Swal from 'sweetalert2'
 import image from '../images/undraw_Filter_re_sa16.png'
+import Loading from "../components/Loading";
+import Error from "../components/Error";
+import Swal from 'sweetalert2'
 
 export default () => { 
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const error = useSelector(state => state.isError)
-  const isLogin = useSelector(state => state.isLogin)
+  const loading = useSelector(state => state.userState.isLoadingUser)
+  const error = useSelector(state => state.userState.isErrorUser)  
+
 
   const [registerUser, setRegisterUser] = useState({
     email: '',
@@ -19,11 +23,25 @@ export default () => {
     status: ''
   })
 
+  // if (loading) {
+  //   return <Loading/>
+  // } 
+
+  if (error) {
+    return <Error/>
+  }
+
   function submitRegister(e) {
     e.preventDefault()
     dispatch(registerHandle(registerUser))
-    // navigate('/login')
+    Swal.fire({
+      icon: 'success',
+      title: 'Thankyou for joining,\n please sign in',
+      showConfirmButton: false
+    })
+    navigate('/login')    
   }
+  
 
   return (
     <div class="d-flex justify-content-center m-4">
@@ -96,5 +114,5 @@ export default () => {
       </div>
     </div>
   ) 
- 
+
 }

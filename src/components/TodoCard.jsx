@@ -41,7 +41,7 @@ function TodoCard({ todo }) {
   if (todo.status == 'pending') {
     return (
       <div class="col-sm-6">
-        <div class="card shadow-sm mb-5 bg-white rounded">
+        <div class="card shadow-sm mb-4 bg-white rounded">
           <div class="card-body">
             <h5 class="card-title"><b>{todo.title}</b></h5>
             <p class="card-text">{convDate(todo.due_on).toDateString()}</p>
@@ -78,7 +78,7 @@ function TodoCard({ todo }) {
   } else {
     return (
       <div class="col-sm-6">
-        <div class="card shadow-sm mb-5 bg-white rounded">
+        <div class="card shadow-sm mb-4 bg-white rounded">
           <div class="card-body">
             <h5 class="card-title"><b>{todo.title}</b></h5>
             <p class="card-text">{convDate(todo.due_on).toDateString()}</p>

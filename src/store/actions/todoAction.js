@@ -85,7 +85,13 @@ export function createTodo(payload) {
       .then(res => res.json())
       .then(data => {
         console.log(data); 
-        // dispatch(setTodo(data))
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: `Your todo has been added`,
+          showConfirmButton: false,
+          timer: 1500
+        })
       })
       .catch((err) => {
         dispatch(setError(err))
@@ -98,11 +104,6 @@ export function createTodo(payload) {
 
 export function deleteTodo(todoId) {
   return function(dispatch, getState) {
-    // console.log(getState().todos?.data);
-
-    // console.log(localStorage.getItem('userId'));
-    // let userId = localStorage.getItem('userId')
-    // console.log(todoId);
     dispatch(setLoading(true))
     // console.log(getState());
     fetch(`${baseUrl}/todos/${todoId}`, {
@@ -118,7 +119,8 @@ export function deleteTodo(todoId) {
           icon: 'success',
           title: 'Deleted!',
           text: `Your todo has been deleted`,
-          showConfirmButton: false
+          showConfirmButton: false,
+          timer: 1000
         })
         // const newTodo = getState().todoState.todos.data.filter(todo => todo.id !== todoId)
         // console.log(newTodo);  
@@ -151,6 +153,14 @@ export function updateTodo(payload, todoId) {
       .then(res => res.json())
       .then((data) => {
         console.log(data);
+        Swal.fire({
+          position: 'top',
+          icon: 'Success',
+          title: 'Sucess',
+          text: 'Your status have been updated',
+          showConfirmButton: false,
+          timer: 1000
+        })
         // dispatch(setProductList(newProduct));
       })
       .catch((err) => {

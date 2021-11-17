@@ -18,20 +18,54 @@ import PostPage from './pages/PostPage'
 import PostDetailPage from './pages/PostDetailPage'
 import EditCommentPage from './pages/EditCommentPage'
 
+import PrivateRoute from './routes/PrivateRoute';
+import PublicRoute from './routes/PublicRoute';
+
 function App() {
   return (
     <Router>
       <div className="App">
         <Navbar/>
-        <Routes>
-          <Route path="/comment/:commentId" element={<EditCommentPage/>}/>
-          <Route path="/post/:postId"  element={<PostDetailPage/>}/>
-          <Route path="/todo/add" element={<AddTodoPage/>}/>
-          <Route path="/register" element={<RegisterPage/>}/>
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/todo" element={<TodoPage/>}/>
-          <Route path="/post" element={<PostPage/>}/>
-        </Routes>
+        <div className="container">
+          <Routes>
+            
+            <Route path="/comment/:commentId" element={
+              <PrivateRoute>
+                <EditCommentPage/>
+              </PrivateRoute>
+            }/>
+            <Route path="/post/:postId"  element={
+              <PrivateRoute>
+                <PostDetailPage/>
+              </PrivateRoute>
+            }/>
+            <Route path="/todo/add" element={
+              <PrivateRoute>
+                <AddTodoPage/>
+              </PrivateRoute>
+            }/>
+            <Route path="/register" element={
+              <PublicRoute>
+                <RegisterPage/>
+              </PublicRoute>
+            }/>
+            <Route path="/login" element={
+              <PublicRoute>
+                <LoginPage/>
+              </PublicRoute>
+            }/>
+            <Route path="/post" element={
+              <PrivateRoute>
+                <PostPage/>
+              </PrivateRoute>
+            }/>
+            <Route path="/" element={
+              <PrivateRoute>
+                <TodoPage/>
+              </PrivateRoute>
+            }/>
+          </Routes>
+        </div>
       </div>
     </Router>
   );

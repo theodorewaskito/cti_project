@@ -19,11 +19,11 @@ function EditCommentPage() {
   })
 
   useEffect(() => {
-    setEditComment({...comment})
-  }, [comment])
+    dispatch(getCommentId(commentId))
+  }, [])
 
   useEffect(() => {
-    dispatch(getCommentId(commentId))
+    setEditComment({...comment})
   }, [])
 
   function submitEditComment(e) {
@@ -32,7 +32,9 @@ function EditCommentPage() {
     Swal.fire({
       icon: 'success',
       title: 'Success',
-      text: 'Comment have been updated'
+      text: 'Comment have been updated',
+      showConfirmButton: false,
+      timer: 1500
     })
     navigate(`/post/${post.data.id}`)
   }

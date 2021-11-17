@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { createComment, getComments, getPostId, setError, setLoading } from '../store/actions/postAction';
 import { getUserDetail } from '../store/actions/userAction';
 import Swal from 'sweetalert2'
+import Profile from "../components/Profile";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 function PostDetailPage() {
   const dispatch = useDispatch()
@@ -12,7 +15,10 @@ function PostDetailPage() {
   // console.log(postId);
   const post  = useSelector(state => state.postState.post);
   const comments  = useSelector(state => state.postState.comments);
-  const user  = useSelector(state => state.postState.user);
+  const user  = useSelector(state => state.userState.user);
+
+  const loading = useSelector(state => state.postState.isLoading)
+  const error = useSelector(state => state.postState.isError)  
 
   const [addComment, setAddComment] = useState({
     post_id: 0,
@@ -27,7 +33,15 @@ function PostDetailPage() {
     dispatch(getUserDetail())
   }, [])
 
-  
+
+  // if (loading) {
+  //   return <Loading/>
+  // } 
+
+  if (error) {
+    return <Error/>
+  }
+
   function submitAddComment(e) {
     e.preventDefault()
     dispatch(createComment(postId, addComment))
@@ -41,7 +55,8 @@ function PostDetailPage() {
   }
 
   return (
-    <div className="m-5">
+    <div className='mb-4'>
+      <Profile/>
       <div class="card">
         <div class="card-body m-3">
           <h5 class="card-title mb-4 post-font bold-font" style={{textAlign: "justify", textJustify: "inter-word"}}><b>{post?.data?.title}</b></h5>
@@ -83,8 +98,6 @@ function PostDetailPage() {
 
         </div>
       </div>
-
-
     </div>
   )
 }

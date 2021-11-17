@@ -1,10 +1,16 @@
-import { SET_LOADING, SET_ERROR, SET_ISLOGIN } from "../actionType";
+import { 
+  SET_LOADING_USER, 
+  SET_ERROR_USER, 
+  SET_ISLOGIN, 
+  SET_USER 
+} from "../actionType";
 
 const initialState = {
   isLogin: false,
-  isLoading: true,
-  isError: false,
-  error: null
+  isLoadingUser: true,
+  isErrorUser: false,
+  error: null,
+  user: {}
 }
 
 function  reducer(state = initialState, action) {
@@ -12,10 +18,12 @@ function  reducer(state = initialState, action) {
   switch (type) {
     case SET_ISLOGIN:
       return { ...state, isLogin: payload }
-    case SET_LOADING:
-      return { ...state, isLoading: payload }
-    case SET_ERROR:
-      return { ...state, isError: payload }
+    case SET_LOADING_USER:
+      return { ...state, isLoadingUser: payload }
+    case SET_ERROR_USER:
+      return { ...state, isErrorUser: payload }
+    case SET_USER:
+      return { ...state, user: payload }
     default:
       return state
   }
