@@ -12,19 +12,17 @@ function EditCommentPage() {
   const comment  = useSelector(state => state.postState.comment);
   const post  = useSelector(state => state.postState.post);
 
-  const [editComment, setEditComment] = useState({
-    name: '',
-    email: '',
-    body: ''
-  })
+  console.log(comment.data);
+
+  const [editComment, setEditComment] = useState({})
 
   useEffect(() => {
     dispatch(getCommentId(commentId))
   }, [])
 
   useEffect(() => {
-    setEditComment({...comment})
-  }, [])
+    setEditComment({...comment.data})
+  }, [comment.data])
 
   function submitEditComment(e) {
     e.preventDefault()
@@ -51,11 +49,11 @@ function EditCommentPage() {
           <div class="mb-3">
             <label for="title" class="form-label">Comment</label>
             <textarea class="form-control" id="floatingTextarea2" style={{height: "150px"}}
+              value={editComment.body}
               onChange={(e) => setEditComment({
                 ...editComment,
                 body: e.target.value
               })}
-              value={editComment.body}
             >
             </textarea>
           </div>
