@@ -50,59 +50,110 @@ export default () => {
   }
 
   if (page > 1) {
-    return (
-      <div>
-        <Profile/>
-        <div className="mb-5">
-          <h1>Todo</h1>
-          <div>
-            <button 
-              onClick={addTodo}
-              type="button" 
-              class="btn" 
-              style={{backgroundColor: "#5386FE", color: "white"}}
-            >
-              <i class="fas fa-plus-circle"></i>
-              <span className="ms-2">Add</span>
-            </button>
+    if (todos?.data?.length < 20) {
+      return (
+        <div>
+          <Profile/>
+          <div className="mb-5">
+            <h1>Todo</h1>
+            <div>
+              <button 
+                onClick={addTodo}
+                type="button" 
+                class="btn" 
+                style={{backgroundColor: "#5386FE", color: "white"}}
+              >
+                <i class="fas fa-plus"></i>
+                <span className="ms-2">Add</span>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            {
+              // console.log(todos),
+              todos?.data?.map(( todo, index ) => {
+                return (
+                  <TodoCard
+                    key={index} 
+                    todo={todo}
+                  />
+                )
+              })
+            }
+          </div>
+          <div className="d-flex justify-content-center mt-5" style={{color: '#5386FE'}}>
+            <nav aria-label="Page navigation example ">
+              <ul class="pagination">
+                <li class="page-item">
+                  <button onClick={previousPage} class="page-link">
+                    <span aria-hidden="true">&laquo;</span>
+                  </button>
+                </li>
+                <li class="page-item">
+                  <button class="page-link">
+                    {page}
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
-        <div class="row">
-          {
-            // console.log(todos),
-            todos?.data?.map(( todo, index ) => {
-              return (
-                <TodoCard
-                  key={index} 
-                  todo={todo}
-                />
-              )
-            })
-          }
+      )
+    } else {
+      return (
+        <div>
+          <Profile/>
+          <div className="mb-5">
+            <h1>Todo</h1>
+            <div>
+              <button 
+                onClick={addTodo}
+                type="button" 
+                class="btn" 
+                style={{backgroundColor: "#5386FE", color: "white"}}
+              >
+                <i class="fas fa-plus"></i>
+                <span className="ms-2">Add</span>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            {
+              // console.log(todos),
+              todos?.data?.map(( todo, index ) => {
+                return (
+                  <TodoCard
+                    key={index} 
+                    todo={todo}
+                  />
+                )
+              })
+            }
+          </div>
+          <div className="d-flex justify-content-center mt-5" style={{color: '#5386FE'}}>
+            <nav aria-label="Page navigation example ">
+              <ul class="pagination">
+                <li class="page-item">
+                  <button onClick={previousPage} class="page-link">
+                    <span aria-hidden="true">&laquo;</span>
+                  </button>
+                </li>
+                <li class="page-item">
+                  <button class="page-link">
+                    {page}
+                  </button>
+                </li>
+                <li class="page-item">
+                  <button onClick={nextPage} class="page-link" >
+                    <span aria-hidden="true">&raquo;</span>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
-        <div className="d-flex justify-content-center mt-5" style={{color: '#5386FE'}}>
-          <nav aria-label="Page navigation example ">
-            <ul class="pagination">
-              <li class="page-item">
-                <button onClick={previousPage} class="page-link">
-                  <span aria-hidden="true">&laquo;</span>
-                </button>
-              </li>
-              <li class="page-item">
-                <button class="page-link">
-                  {page}
-                </button>
-              </li>
-              <li class="page-item">
-                <button onClick={nextPage} class="page-link" >
-                  <span aria-hidden="true">&raquo;</span>
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    )
+      )
+    }
   } else {
     return (
       <div>
@@ -116,7 +167,7 @@ export default () => {
               class="btn" 
               style={{backgroundColor: "#5386FE", color: "white"}}
             >
-              <i class="fas fa-plus-circle"></i>
+              <i class="fas fa-plus"></i>
               <span className="ms-2">Add</span>
             </button>
           </div>
@@ -153,5 +204,4 @@ export default () => {
       </div>
     )
   }
-
 }
