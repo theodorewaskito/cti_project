@@ -121,6 +121,7 @@ export function createTodo(payload) {
           showConfirmButton: false,
           timer: 1500
         })
+        dispatch(getTodos())
       })
       .catch((err) => {
         dispatch(setError(err))

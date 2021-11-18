@@ -35,7 +35,7 @@ function PostDetailPage() {
     dispatch(getPostId(postId))
     dispatch(getComments(postId))
     dispatch(getUserDetail())
-    dispatch(getUserPostDetail(post.data.user_id))
+    dispatch(getUserPostDetail(post?.data?.user_id))
   }, [])
 
 
