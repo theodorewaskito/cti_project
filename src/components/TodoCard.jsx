@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setError } from '../store/actions/userAction';
 import { deleteTodo, updateTodo } from '../store/actions/todoAction';
 import Swal from 'sweetalert2'
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 function TodoCard({ todo }) {
   const dispatch = useDispatch()
 
   // const todoState = useSelector(state => state.todoState.todo);
+  const loading = useSelector(state => state.todoState.isLoadingTodo)
+  const error = useSelector(state => state.todoState.isErrorTodo)
 
   const [editTodo, setEditTodo] = useState({
     status: ''
@@ -36,6 +40,14 @@ function TodoCard({ todo }) {
   function submitEditTodo(e) {
     e.preventDefault()
     dispatch(updateTodo(editTodo, todo.id))
+  }
+
+  if (loading) {
+    return <Loading/>
+  } 
+
+  if (error) {
+    return <Error/>
   }
 
   if (todo.status == 'pending') {

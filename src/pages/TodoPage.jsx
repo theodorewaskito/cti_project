@@ -22,7 +22,7 @@ export default () => {
 
   useEffect(() => {
     dispatch(getTodos())
-  }, [])
+  }, [dispatch])
 
   function addTodo(e) {
     e.preventDefault()
