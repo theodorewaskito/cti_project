@@ -1,13 +1,21 @@
 import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { setLoading, setError, deleteComment} from '../store/actions/postAction';
+import { deleteComment, setLoadingComment, setErrorComment } from '../store/actions/postAction';
+// import { setLoading, setError } from '../store/actions/userAction';
 import Swal from 'sweetalert2'
+import Loading from "../components/Loading";
+import Error from "../components/Error";
+
 
 function Comment({ comment, postId }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const loading = useSelector(state => state.postState.isLoadingComment)
+  const error = useSelector(state => state.postState.isErrorComment)
+
+  console.log(loading);
   // console.log(comment, postId);
 
   function editComment(id) {
@@ -28,6 +36,14 @@ function Comment({ comment, postId }) {
         dispatch(deleteComment(id, postId))
       }
     })
+  }
+
+  if (loading) {
+    return <Loading/>
+  } 
+
+  if (error) {
+    return <Error/>
   }
 
   return (
@@ -61,3 +77,4 @@ function Comment({ comment, postId }) {
 }
 
 export default Comment
+

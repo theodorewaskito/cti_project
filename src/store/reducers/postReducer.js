@@ -5,12 +5,16 @@
     SET_COMMENT, 
     SET_LOADING_POST,
     SET_ERROR_POST,
+    SET_LOADING_COMMENT,
+    SET_ERROR_COMMENT,
     SET_PAGE_POST
   } from "../actionType";
 
   const initialState = {
     isLoading: false,
     isError: false,
+    isLoadingComment: false,
+    isErrorComment: false,
     posts: [],
     post: {},
     comments: [],
@@ -26,6 +30,10 @@
         return { ...state, isLoading: payload }
       case SET_ERROR_POST:
         return { ...state, isError: payload }
+      case SET_LOADING_COMMENT:
+        return { ...state, isLoadingComment: payload }
+      case SET_ERROR_COMMENT:
+        return { ...state, isErrorComment: payload }
       case SET_POSTS:
         return { ...state, posts: payload }
       case SET_POST:
