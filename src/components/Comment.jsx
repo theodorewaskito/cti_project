@@ -77,3 +77,4 @@ function Comment({ comment, postId }) {
 }
 
 export default Comment
+
